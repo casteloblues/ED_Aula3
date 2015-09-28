@@ -1,6 +1,6 @@
-
 package aula3;
 
+import java.awt.font.GlyphMetrics;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -12,41 +12,38 @@ import java.io.IOException;
  */
 public class Aula3 {
 
-    public static void main (String[] args) throws IOException {
+    public static void main(String[] args) throws IOException {
         FileReader data;
-        
+
         try {
             data = new FileReader("C:/Temp/dataVoos.txt"); //alterar para o local do seu arquivo txt
             BufferedReader linha = new BufferedReader(data);
             String aux = linha.readLine();
             int valor = linha.read();
             char c = (char) valor;
-            
+            boolean ws = false;
             while (aux != null) {
-                int i = 0;
-                while(valor ) {//rever método
-                    System.out.print(c);
-                    valor = linha.read();
+                aux = linha.readLine();
+
+                for (int i = 0; i < aux.length() && !ws; i++) {
+                    System.out.println(c);
+                    valor = data.read();
                     c = (char) valor;
-                    if (!aux.equalsIgnoreCase(" ")) {
-                        System.out.println(c);
+                    if (Character.isWhitespace(aux.charAt(i))) {
+                        ws = true;
                     }
                 }
-                System.out.println(aux);
-                aux = linha.readLine();
             }
-            
-//            while(valor != -1) {
+//           
 //                System.out.println(c);
-//                valor = linha.read();
+//                valor = data.read();
 //                c = (char) valor;
-//            }
-            data.close();
-        }
-        catch (FileNotFoundException e) {
+
+                data.close();
+
+            }catch (FileNotFoundException e) {
             System.out.println("Arquivo não encontrado!");
             System.exit(0);
         }
+        }
     }
-    
-}
